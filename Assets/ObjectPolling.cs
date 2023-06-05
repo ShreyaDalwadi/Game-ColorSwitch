@@ -6,7 +6,7 @@ public class ObjectPolling : MonoBehaviour
 {
     public static ObjectPolling inst;
     public List<GameObject> circleslist = new List<GameObject>();
-    public int amount = 5;
+    public int amount = 4;
     public GameObject prefeb;
     public float offset = 5f;
 
@@ -31,9 +31,12 @@ public class ObjectPolling : MonoBehaviour
             if (!circleslist[i].activeInHierarchy)
             {
                 return circleslist[i];
-                
+               
+
+
             }
         }
         return null;
     }
+
 }
