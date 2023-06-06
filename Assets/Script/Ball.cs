@@ -10,6 +10,7 @@ public class Ball : MonoBehaviour
     public _Color[] colorlist;
     public Renderer ballrenderer;
   public int currentIndex = 0;
+    
 
     void Start()
     {
@@ -24,7 +25,7 @@ public class Ball : MonoBehaviour
     void Update()
     {
         BallJump();
-        ChangeColor();
+       
     }
     public void BallJump()
     {
@@ -53,53 +54,16 @@ public class Ball : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("colorchange"))
         {
-            ChangeColor();
+            
         }
 
     }
-
-    public void ChangeColor()
-    {
-        currentIndex = (currentIndex + 1) % colorlist.Length;
-        ballrenderer.material.color = colorlist[currentIndex];
-        Debug.Log("change color");
-    }
-    //public void SetRandomColor()
-    //{
-        //switch (currentcolor)
-        //{
-
-        //    case ColorType.Blue:
-        //        currentcolor = ColorType.Blue;
-        //        break;
-
-        //    case ColorType.Pink:
-        //        currentcolor = ColorType.Pink;
-        //        break;
-
-        //    case ColorType.Purple:
-        //        currentcolor = ColorType.Purple;
-        //        break;
-        //    case ColorType.Yellow:
-        //        currentcolor = ColorType.Yellow;
-        //        break;
-        //}
-    //}
     [System.Serializable]
     public class _Color
     {
         public ColorType name;
         public Color colors;
 
-        public static implicit operator Color(_Color v)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public static implicit operator Color(_Color v)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
     public enum ColorType
     {
