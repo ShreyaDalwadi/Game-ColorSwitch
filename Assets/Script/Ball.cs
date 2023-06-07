@@ -10,12 +10,11 @@ public class Ball : MonoBehaviour
     public _Color[] colorlist;
     public Renderer ballrenderer;
   public int currentIndex = 0;
-    
+   
 
     void Start()
     {
         inst = this;
-       
     }
     private void Awake()
     {
@@ -27,6 +26,7 @@ public class Ball : MonoBehaviour
         BallJump();
        
     }
+  
     public void BallJump()
     {
         if (Input.GetMouseButtonDown(0))
@@ -47,6 +47,7 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.CompareTag("yellow"))
         {
             Debug.Log("yellow");
+
         }
         if (collision.gameObject.CompareTag("purple"))
         {
@@ -54,10 +55,11 @@ public class Ball : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("colorchange"))
         {
-            
         }
 
+
     }
+
     [System.Serializable]
     public class _Color
     {

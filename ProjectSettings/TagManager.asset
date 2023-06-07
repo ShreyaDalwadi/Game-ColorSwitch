@@ -10,6 +10,7 @@ TagManager:
   - purple
   - blue
   - colorchange
+  - colider
   layers:
   - Default
   - TransparentFX

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPooling : MonoBehaviour
+public class Instantiate : MonoBehaviour
 {
 
     public List<GameObject> RingsObjects;
@@ -10,7 +10,8 @@ public class ObjectPooling : MonoBehaviour
     public GameObject spwanPoint;
     public int ringCount=5;
 
-    public static ObjectPooling inst;
+
+    public static Instantiate inst;
 
     private void Awake()
     {
@@ -18,14 +19,7 @@ public class ObjectPooling : MonoBehaviour
 
     }
 
-    void Start()
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            SpwanerRing();
-        }
-    }
-    
+
     public void SpwanerRing()
     {
         GameObject random = Instantiate(RingsObjects[Random.Range(0, RingsObjects.Count)]);
