@@ -6,24 +6,14 @@ using System;
 public class CameraFollow : MonoBehaviour
 {
     public Transform player;
-    public float time;
-    public float camPosy;
-    Vector3 PlayerPos;
-
-    void CameraStartPoint()
+    public float offset;
+    public void Start()
     {
-        PlayerPos = new Vector3(player.transform.position.x, player.transform.position.y + camPosy, -10);
-        transform.position = Vector3.Lerp(transform.position, PlayerPos, time * Time.deltaTime);
-
-        float diff = Vector2.Distance(transform.position, player.transform.position);
-        if (diff < 3f)
-        {
-            time = 4f;
-        }
+        offset = transform.position.y;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        CameraStartPoint();
+        transform.position= new Vector3(transform.position.x, MainMenu.inst.ball.transform.position.y , transform.position.z);
     }
 }
