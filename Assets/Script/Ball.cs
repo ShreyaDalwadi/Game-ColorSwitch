@@ -40,9 +40,7 @@ public class Ball : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("star"))
-        {
-
-
+        { 
             ScoreManager.inst.IncreseScore(1);
             Destroy(collision.gameObject);
         }
@@ -60,7 +58,7 @@ public class Ball : MonoBehaviour
         else
         {
             MainMenu.inst.ball.SetActive(false);
-            Destroy(gameObject);
+            MainMenu.inst.ball.SetActive(false);
             MainMenu.inst.Onreset();
             UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
             Debug.Log("ball destroy");

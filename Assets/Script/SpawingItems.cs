@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class MainMenu : screen
-{
+public class Instantiate : MonoBehaviour
+{ 
 
     public GameObject ballprefeb;
-    public List<GameObject> parentList;
-    public List<GameObject> spwanList;
+    public List<GameObject> ringList;
+    public List<GameObject> SpwanList;
+    public List<GameObject> starList;
     public GameObject spwanPoint;
-    public static MainMenu inst;
+    public static Instantiate inst;
     public GameObject ball;
+    public GameObject colorchangePrefeb;
+
+
+
 
     private void Start()
     {
@@ -26,6 +30,7 @@ public class MainMenu : screen
         UIManager.inst.ShowNextScreen(ScreenEnum.GamePlay);
         ball.SetActive(true);
         SetObjectsActive();
+        StarInst();
 
         //Score.inst.Reset();
     }
@@ -38,11 +43,11 @@ public class MainMenu : screen
 
     public void SetObjectsActive()
     {
-        for (int i = 0; i < parentList.Count; i++)
+        for (int i = 0; i < ringList.Count; i++)
         {
-            GameObject random = Instantiate(parentList[Random.Range(0, parentList.Count)]);
+            GameObject random = Instantiate(ringList[Random.Range(0, ringList.Count)]);
             random.transform.position = RandomSpwanPoint();
-            spwanList.Add(random);
+            SpwanList.Add(random);
         }
 
 
@@ -57,15 +62,24 @@ public class MainMenu : screen
     }
     public void Onreset()
     {
-        for (int i = 0; i < spwanList.Count; i++)
+        for (int i = 0; i < SpwanList.Count; i++)
         {
-            Destroy(spwanList[i].gameObject);
+            Destroy(SpwanList[i].gameObject);
 
         }
-        spwanList.Clear();
+        SpwanList.Clear();
         spwanPoint.transform.position = new Vector3(0, 0, 0);
         Debug.Log("reset" + transform.position);
 
     }
-   
+    public void StarInst()
+    {
+        for (int i = 0; i <= starList.Count; i++)
+        {
+            Instantiate(starList[i]);
+        }
+
+    }
+
+
 }
