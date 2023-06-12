@@ -1,15 +1,15 @@
 
-    public enum colorType
-    {
-        Pink,
-        Yellow,
-        Purple,
-        Blue,
-        Red,
-        Skyblue
-    }
+public enum colorType
+{
 
-   
+    Yellow,
+    Red,
+    Skyblue,
+    green
+}
+
+
+
 
 
 

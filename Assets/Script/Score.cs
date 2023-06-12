@@ -7,12 +7,12 @@ public class Score : MonoBehaviour
 {
 
     public int score = 0;
-  
+    public static Score inst;
 
    
     private void Awake()
     {
-      
+        inst = this;
         ScoreManager.inst.scoretxt.text = PlayerPrefs.GetInt("Score", 0).ToString();
 
     }

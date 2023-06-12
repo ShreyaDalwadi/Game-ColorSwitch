@@ -18,6 +18,7 @@ public class MainMenu : screen
         inst = this;
         UIManager.inst.ShowNextScreen(ScreenEnum.MainMenu);
         SpawnBall();
+       // GamePlay.inst.ballpartical.Stop();
 
     }
 
@@ -26,12 +27,11 @@ public class MainMenu : screen
         UIManager.inst.ShowNextScreen(ScreenEnum.GamePlay);
         ball.SetActive(true);
         SetObjectsActive();
-
-        //Score.inst.Reset();
+        Score.inst.Reset();
     }
     public void SpawnBall()
     {
-        ball = Instantiate(ballprefeb, Vector3.zero, Quaternion.identity);
+        ball = Instantiate(ballprefeb,new Vector3(0,0,0), Quaternion.identity);
         ball.SetActive(false);
     }
 
@@ -40,6 +40,7 @@ public class MainMenu : screen
     {
         for (int i = 0; i < parentList.Count; i++)
         {
+
             GameObject random = Instantiate(parentList[Random.Range(0, parentList.Count)]);
             random.transform.position = RandomSpwanPoint();
             spwanList.Add(random);
@@ -50,7 +51,7 @@ public class MainMenu : screen
     public Vector2 RandomSpwanPoint()
     {
         float xvalue = Random.Range(0f, 0f);
-        float yvalue = Random.Range(5f, 5f);
+        float yvalue = Random.Range(6f, 6f);
         spwanPoint.transform.position = new Vector2(spwanPoint.transform.position.x + xvalue, spwanPoint.transform.position.y + yvalue);
         return spwanPoint.transform.position;
 
@@ -64,6 +65,7 @@ public class MainMenu : screen
         }
         spwanList.Clear();
         spwanPoint.transform.position = new Vector3(0, 0, 0);
+        ball.transform.position = new Vector3(0, -3, 0);
         Debug.Log("reset" + transform.position);
 
     }

@@ -14,8 +14,6 @@ public class Ball : MonoBehaviour
     public Rigidbody2D rigidbody2d;
     public SpriteRenderer spriterenderer;
 
-
-
     void Start()
     {
         inst = this;
@@ -39,30 +37,39 @@ public class Ball : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("star"))
-        { 
+        if (collision.gameObject.CompareTag("part"))
+        {
+          
+            if (currentcolor == collision.GetComponent<Part>().colorType)
+            {
+                Debug.Log("ball match");
+            }
+            else
+            {
+                Debug.Log("color"+ collision.GetComponent<Part>().colorType);
+
+                MainMenu.inst.ball.SetActive(false);
+                MainMenu.inst.Onreset();
+                UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
+                Debug.Log("ball not match");
+            }
+        }
+
+        else if (collision.gameObject.CompareTag("star"))
+        {
             ScoreManager.inst.IncreseScore(1);
             Destroy(collision.gameObject);
         }
+
         else if (collision.gameObject.CompareTag("colorchange"))
         {
             Debug.Log("name" + collision.gameObject.name);
             spriterenderer.color = collision.GetComponent<ColorManager>().ColorChange();
             Debug.Log("change color" + spriterenderer.color);
         }
+       
 
-        else if (currentcolor == collision.GetComponent<Part>().colorType)
-        {
-            Debug.Log("ball match");
-        }
-        else
-        {
-            MainMenu.inst.ball.SetActive(false);
-            MainMenu.inst.ball.SetActive(false);
-            MainMenu.inst.Onreset();
-            UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
-            Debug.Log("ball destroy");
-        }
+
     }
 }
 

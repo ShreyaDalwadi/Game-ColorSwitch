@@ -5,5 +5,6 @@ using UnityEngine.UI;
 
 public class GamePlay :screen
 {
-   
+    public static GamePlay inst;
+    public ParticleSystem ballpartical;
 }

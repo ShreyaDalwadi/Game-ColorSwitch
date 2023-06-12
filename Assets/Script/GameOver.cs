@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class GameOver : screen
 {
-    public void OnHomeButtonClick()
+    private void Start()
     {
+        //GamePlay.inst.ballpartical.Stop();
+    }
+    public void OnHomeButtonClick()
+    { 
         UIManager.inst.ShowNextScreen(ScreenEnum.MainMenu);
     }
 }
