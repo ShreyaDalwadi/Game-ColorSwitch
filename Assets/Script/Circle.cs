@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Circle : MonoBehaviour
 {
-    public float speed = 20f;
+    public float speed = 30f;
 
     public void Update()
     {

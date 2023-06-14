@@ -23,19 +23,7 @@ public class UIManager : MonoBehaviour
         currentScreen = screenList[(int)ScreenType];
 
 
-        //switch (ScreenType)
-        //{
-        //    case ScreenEnum.MainMenu:
-        //        GameStateManager.inst.UpdateGameState(GameState.MainMenu);
-        //        break;
-        //    case ScreenEnum.GamePlay:
-        //        GameStateManager.inst.UpdateGameState(GameState.Gameplay);
-        //        break;
-        //    case ScreenEnum.GameOver:
-        //        GameStateManager.inst.UpdateGameState(GameState.GameOver);
-        //        break;
-
-        //}
+      
     }
 }
 

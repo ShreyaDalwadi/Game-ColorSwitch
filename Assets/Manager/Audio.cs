@@ -6,7 +6,6 @@ public class Audio : MonoBehaviour
 {
 
     [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioSource bgaudioSource;
 
     public List<Sound> clips;
     public static Audio inst;
@@ -30,24 +29,7 @@ public class Audio : MonoBehaviour
         }
 
     }
-    public void BackgroundMusic(SoundName name)
-    {
-        foreach (var a in clips)
-        {
-            if (a.bgName == SoundName.Background)
-            {
-                int bgClipIndex = clips.FindIndex(x => x.bgName == SoundName.Background);
-                Debug.Log("int val" + bgClipIndex);
-                bgaudioSource.clip = clips[bgClipIndex].clip;
-                bgaudioSource.Play();
-            }
-        }
-    }
-    //public void SoundStop()
-    //{
-    //    bgaudioSource.Pause();
-    //}
-
+  
 
     [System.Serializable]
     public class Sound
@@ -58,13 +40,10 @@ public class Audio : MonoBehaviour
     public enum SoundName
     {
         Shoot,
-        NearMiss,
-        GameOver,
-        GameComplete,
+        ColorChange,
         Buttons,
-        Try,
-        Background,
-        Mainmenu
+        GameOver,
+        Try
     }
 
 

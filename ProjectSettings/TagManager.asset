@@ -5,13 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
-  - pink
-  - yellow
-  - purple
-  - blue
   - colorchange
   - colider
   - star
+  - part
   layers:
   - Default
   - TransparentFX

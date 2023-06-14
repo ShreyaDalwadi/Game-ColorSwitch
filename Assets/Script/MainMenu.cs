@@ -13,26 +13,30 @@ public class MainMenu : screen
     public static MainMenu inst;
     public GameObject ball;
 
+
     private void Start()
     {
         inst = this;
         UIManager.inst.ShowNextScreen(ScreenEnum.MainMenu);
-        SpawnBall();
-       // GamePlay.inst.ballpartical.Stop();
+        Ball.inst.part.Stop();
 
     }
 
     public void OnButtonClick()
     {
+        Audio.inst.SoundPlay(Audio.SoundName.Buttons);
         UIManager.inst.ShowNextScreen(ScreenEnum.GamePlay);
+        SpawnBall();
+        Ball.inst.part.Stop();
+        Debug.Log("partical stop");
         ball.SetActive(true);
         SetObjectsActive();
-        Score.inst.Reset();
+        ScoreManager.inst.Reset();
     }
     public void SpawnBall()
     {
-        ball = Instantiate(ballprefeb,new Vector3(0,0,0), Quaternion.identity);
-        ball.SetActive(false);
+       ball = Instantiate(ballprefeb,new Vector3(0,0,0), Quaternion.identity);
+        ball.SetActive(true);
     }
 
 
@@ -40,7 +44,6 @@ public class MainMenu : screen
     {
         for (int i = 0; i < parentList.Count; i++)
         {
-
             GameObject random = Instantiate(parentList[Random.Range(0, parentList.Count)]);
             random.transform.position = RandomSpwanPoint();
             spwanList.Add(random);

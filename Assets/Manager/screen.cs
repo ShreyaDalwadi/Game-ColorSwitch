@@ -8,6 +8,7 @@ public enum ScreenEnum
     MainMenu,
     GamePlay,
     GameOver,
+    Pause
    
 }
 

@@ -9,18 +9,22 @@ using UnityEngine.UI;
 public class Ball : MonoBehaviour
 {
 
-    public colorType currentcolor;
+    public colorType ballenum;
     public static Ball inst;
     public Rigidbody2D rigidbody2d;
     public SpriteRenderer spriterenderer;
+    public ColorManager colorManager;
+    public ParticleSystem part;
 
     void Start()
     {
+        
         inst = this;
         spriterenderer = GetComponent<SpriteRenderer>();
+   
     }
 
-
+ 
     void Update()
     {
         BallJump();
@@ -31,6 +35,7 @@ public class Ball : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Audio.inst.SoundPlay(Audio.SoundName.Shoot);
             rigidbody2d.velocity = Vector2.up * 3;
         }
     }
@@ -39,38 +44,65 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("part"))
         {
-          
-            if (currentcolor == collision.GetComponent<Part>().colorType)
+           
+            if (ballenum == collision.GetComponent<Part>().colorType)
             {
                 Debug.Log("ball match");
             }
             else
             {
-                Debug.Log("color"+ collision.GetComponent<Part>().colorType);
 
-                MainMenu.inst.ball.SetActive(false);
-                MainMenu.inst.Onreset();
-                UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
-                Debug.Log("ball not match");
+             part.Play();
+                Debug.Log("partical play");
+
+                StartCoroutine(enumerator());
+                Debug.Log("wait 2 second");
+                Debug.Log("color" + collision.GetComponent<Part>().colorType);
+
+
+                //UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
+
+                Debug.Log("ball not match");  
+               
             }
         }
 
         else if (collision.gameObject.CompareTag("star"))
         {
             ScoreManager.inst.IncreseScore(1);
+            PlayerPrefs.SetInt("score", ScoreManager.inst.score);
+            PlayerPrefs.SetInt("highscore", ScoreManager.inst.highscore);
             Destroy(collision.gameObject);
         }
 
         else if (collision.gameObject.CompareTag("colorchange"))
         {
+            Audio.inst.SoundPlay(Audio.SoundName.ColorChange);
             Debug.Log("name" + collision.gameObject.name);
-            spriterenderer.color = collision.GetComponent<ColorManager>().ColorChange();
-            Debug.Log("change color" + spriterenderer.color);
-        }
-       
+            //colorManager.ColorChange();
 
+            collision.gameObject.GetComponent<ColorManager>().ColorChange();
+
+            spriterenderer.color = collision.gameObject.GetComponent<ColorManager>().mycolor;
+            ballenum = collision.gameObject.GetComponent<ColorManager>().currentcolor;
+   
+            Debug.Log("change color" + spriterenderer.color);
+         
+        }
+        
 
     }
+    IEnumerator enumerator()
+    {
+        yield return new WaitForSeconds(2);
+        UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
+        Debug.Log("gameover screen");
+        MainMenu.inst.ball.SetActive(false);
+        MainMenu.inst.Onreset();
+    }
+
+
+
 }
 
 
