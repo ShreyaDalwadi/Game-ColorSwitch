@@ -9,6 +9,7 @@ TagManager:
   - colider
   - star
   - part
+  - hand
   layers:
   - Default
   - TransparentFX

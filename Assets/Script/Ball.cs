@@ -15,6 +15,8 @@ public class Ball : MonoBehaviour
     public SpriteRenderer spriterenderer;
     public ColorManager colorManager;
     public ParticleSystem part;
+    public GameObject ball;
+   
 
     void Start()
     {
@@ -35,8 +37,11 @@ public class Ball : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Ball.inst.rigidbody2d.isKinematic = false;
             Audio.inst.SoundPlay(Audio.SoundName.Shoot);
             rigidbody2d.velocity = Vector2.up * 3;
+            Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.None;
+            GamePlay.inst.pptTxt.enabled = false;
         }
     }
 
@@ -52,16 +57,16 @@ public class Ball : MonoBehaviour
             else
             {
 
-             part.Play();
+                part.Play();
                 Debug.Log("partical play");
 
                 StartCoroutine(enumerator());
                 Debug.Log("wait 2 second");
                 Debug.Log("color" + collision.GetComponent<Part>().colorType);
 
-
+                spriterenderer.enabled = false;
+                rigidbody2d.isKinematic = false;
                 //UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
-
                 Debug.Log("ball not match");  
                
             }
@@ -89,16 +94,21 @@ public class Ball : MonoBehaviour
             Debug.Log("change color" + spriterenderer.color);
          
         }
+        if(collision.gameObject.CompareTag("hand"))
+        {
+            Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
         
 
     }
     IEnumerator enumerator()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
         Debug.Log("gameover screen");
-        MainMenu.inst.ball.SetActive(false);
         MainMenu.inst.Onreset();
+        rigidbody2d.isKinematic = true;
+        rigidbody2d.constraints = RigidbodyConstraints2D.FreezePositionY;
     }
 
 

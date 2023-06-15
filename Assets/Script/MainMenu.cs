@@ -4,40 +4,47 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenu : screen
-{
-
-    public GameObject ballprefeb;
+{ 
+    //public GameObject ballprefeb;
     public List<GameObject> parentList;
     public List<GameObject> spwanList;
     public GameObject spwanPoint;
     public static MainMenu inst;
-    public GameObject ball;
-
+    public Text ppttext;
+    public List<Animator> animatorList;
 
     private void Start()
     {
         inst = this;
-        UIManager.inst.ShowNextScreen(ScreenEnum.MainMenu);
         Ball.inst.part.Stop();
+        //GamePlay.inst.pptTxt.enabled = false;
+        UIManager.inst.ShowNextScreen(ScreenEnum.MainMenu);
+        Debug.Log("hand false");
+        ppttext.enabled = false;
+            
 
-    }
+
+}
 
     public void OnButtonClick()
     {
         Audio.inst.SoundPlay(Audio.SoundName.Buttons);
         UIManager.inst.ShowNextScreen(ScreenEnum.GamePlay);
-        SpawnBall();
-        Ball.inst.part.Stop();
         Debug.Log("partical stop");
-        ball.SetActive(true);
+        Ball.inst.part.Stop();
+        Ball.inst.spriterenderer.enabled = true;
+        Ball.inst.ball.SetActive(true);
+        ppttext.enabled = true;
+        Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.None;
+  
         SetObjectsActive();
         ScoreManager.inst.Reset();
     }
-    public void SpawnBall()
-    {
-       ball = Instantiate(ballprefeb,new Vector3(0,0,0), Quaternion.identity);
-        ball.SetActive(true);
-    }
+    //public void SpawnBall()
+    //{
+    //   ball = Instantiate(ballprefeb,new Vector3(0,0,0), Quaternion.identity);
+    //    ball.SetActive(true);
+    //}
 
 
     public void SetObjectsActive()
@@ -68,7 +75,7 @@ public class MainMenu : screen
         }
         spwanList.Clear();
         spwanPoint.transform.position = new Vector3(0, 0, 0);
-        ball.transform.position = new Vector3(0, -3, 0);
+        Ball.inst.ball.transform.position = new Vector3(0, -1, 0);
         Debug.Log("reset" + transform.position);
 
     }
