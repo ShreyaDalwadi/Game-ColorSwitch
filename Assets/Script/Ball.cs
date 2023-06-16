@@ -41,7 +41,7 @@ public class Ball : MonoBehaviour
             Audio.inst.SoundPlay(Audio.SoundName.Shoot);
             rigidbody2d.velocity = Vector2.up * 3;
             Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.None;
-            GamePlay.inst.pptTxt.enabled = false;
+            //GamePlay.inst.pptTxt.enabled = false;
         }
     }
 

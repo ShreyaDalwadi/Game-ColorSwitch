@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class MainMenu : screen
 { 
     //public GameObject ballprefeb;
@@ -11,20 +12,22 @@ public class MainMenu : screen
     public GameObject spwanPoint;
     public static MainMenu inst;
     public Text ppttext;
-    public List<Animator> animatorList;
 
+ 
     private void Start()
     {
+     
         inst = this;
         Ball.inst.part.Stop();
         //GamePlay.inst.pptTxt.enabled = false;
         UIManager.inst.ShowNextScreen(ScreenEnum.MainMenu);
         Debug.Log("hand false");
         ppttext.enabled = false;
-            
 
+       
+    }
+   
 
-}
 
     public void OnButtonClick()
     {
@@ -36,8 +39,10 @@ public class MainMenu : screen
         Ball.inst.ball.SetActive(true);
         ppttext.enabled = true;
         Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.None;
-  
-        SetObjectsActive();
+
+
+
+    SetObjectsActive();
         ScoreManager.inst.Reset();
     }
     //public void SpawnBall()
