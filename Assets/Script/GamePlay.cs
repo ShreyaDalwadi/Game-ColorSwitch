@@ -7,44 +7,16 @@ public class GamePlay :screen
 {
 
     public static GamePlay inst;
-    public GameObject hand;
-    public Text pptText;
-    public Animator animator;
-    public float second = 2f;
-    public float target = 0f;
-    private float currentAlpha;
-    public GameObject emptyobj;
-    private void Start()
+   
+    public void OnPauseButton()
     {
-        currentAlpha = pptText.color.a;
-        Ball.inst.part.Stop();
-    }
-    private void Update()
-    {
-        
-    }
-    public void OnPauseButtonClick()
-    {
+       // Time.timeScale = 0;
         UIManager.inst.ShowNextScreen(ScreenEnum.Pause);
-        Ball.inst.ball.SetActive(false);
-        MainMenu.inst.Onreset();
+        Ball.inst.rigidbody2d.isKinematic = true;
         Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.FreezeAll;
-
+        Ball.inst.spriterenderer.enabled = false;
     }
-    IEnumerator Fade()
-    {
-        //start to end time of event
-        float elapsedTime = Time.time;
-        //Debug.Log("elapsed" + elapsedTime);
-        Debug.Log("Time" + Time.time);
-        float newAlpha = Mathf.Lerp(currentAlpha, target, elapsedTime / second);
-
-        Color newColor = pptText.color;
-        newColor.a = newAlpha;
-        pptText.color = newColor;
-        yield return pptText.color;
-    }
-
+ 
 }
 
 

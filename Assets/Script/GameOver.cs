@@ -6,27 +6,24 @@ using UnityEngine.UI;
 public class GameOver : screen
 {
   
-    private void Start()
-    {
-       Ball.inst.part.Stop();
-      
-    }
+ 
     public void OnHomeButtonClick()
-    { 
+    {
+
         UIManager.inst.ShowNextScreen(ScreenEnum.MainMenu);
         Audio.inst.SoundPlay(Audio.SoundName.Buttons);
+        Ball.inst.spriterenderer.enabled = false;
         ScoreManager.inst.Reset();
-        MainMenu.inst.Onreset();
-        Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.FreezeAll;
     }
     public void OnTryButtonClick()
     {
-        MainMenu.inst.Onreset();
         UIManager.inst.ShowNextScreen(ScreenEnum.GamePlay);
-        Audio.inst.SoundPlay(Audio.SoundName.Try);
-        Ball.inst.ball.SetActive(true);
-        Ball.inst.spriterenderer.enabled = true;
-        Ball.inst.rigidbody2d.isKinematic = false;
-        Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.FreezeAll;
+        Audio.inst.SoundPlay(Audio.SoundName.Buttons);
+        Ball.inst.spriterenderer.enabled = false;
+        Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.None;
+        SpawnRing.inst.Onreset();
+        SpawnRing.inst.SetObjectsActive();
+        ScoreManager.inst.Reset();
+
     }
 }

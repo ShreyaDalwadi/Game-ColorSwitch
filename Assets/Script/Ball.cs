@@ -16,20 +16,29 @@ public class Ball : MonoBehaviour
     public ColorManager colorManager;
     public ParticleSystem part;
     public GameObject ball;
-   
+    public static Action action;
+
+
 
     void Start()
     {
         
         inst = this;
+        spriterenderer.enabled = false;
         spriterenderer = GetComponent<SpriteRenderer>();
    
     }
+    private void OnEnable()
+    {
+        GameManager.OnGameStateChanged += OnStateChanged;
+    }
 
- 
+
+
     void Update()
     {
-        BallJump();
+       
+        action?.Invoke();
 
     }
 
@@ -37,10 +46,10 @@ public class Ball : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ball.inst.rigidbody2d.isKinematic = false;
+            spriterenderer.enabled = true;
+           rigidbody2d.isKinematic = false;
             Audio.inst.SoundPlay(Audio.SoundName.Shoot);
             rigidbody2d.velocity = Vector2.up * 3;
-            Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.None;
             //GamePlay.inst.pptTxt.enabled = false;
         }
     }
@@ -65,7 +74,8 @@ public class Ball : MonoBehaviour
                 Debug.Log("color" + collision.GetComponent<Part>().colorType);
 
                 spriterenderer.enabled = false;
-                rigidbody2d.isKinematic = false;
+                rigidbody2d.isKinematic = true;
+                rigidbody2d.constraints = RigidbodyConstraints2D.FreezeAll;
                 //UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
                 Debug.Log("ball not match");  
                
@@ -96,7 +106,7 @@ public class Ball : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("hand"))
         {
-            Ball.inst.rigidbody2d.constraints = RigidbodyConstraints2D.FreezeAll;
+         rigidbody2d.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         
 
@@ -106,9 +116,29 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(1);
         UIManager.inst.ShowNextScreen(ScreenEnum.GameOver);
         Debug.Log("gameover screen");
-        MainMenu.inst.Onreset();
-        rigidbody2d.isKinematic = true;
-        rigidbody2d.constraints = RigidbodyConstraints2D.FreezePositionY;
+        SpawnRing.inst.Onreset();
+   
+    }
+    public void OnStateChanged(GameState gs)
+    {
+        switch (gs)
+        {
+
+            case GameState.MainMenu:
+                action -= BallJump;
+                break;
+            case GameState.GamePlay:
+                action += BallJump;
+                break;
+            case GameState.GameOver:
+                action -= BallJump;
+                break;
+            case GameState.Pause:
+                action -= BallJump;
+                break;
+
+
+        }
     }
 
 
